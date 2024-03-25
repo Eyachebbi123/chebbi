@@ -1,0 +1,16 @@
+{
+  "short_name": "Delici",
+  "name": "Delici - Restaurants React Template",
+  "icons": [
+    {
+      "src": "assets/images/favicon.png",
+      "sizes": "36x36",
+      "type": "image/x-icon"
+    }
+    
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
