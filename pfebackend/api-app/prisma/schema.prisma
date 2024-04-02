@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Products {
+  id          Int     @id @default(autoincrement())
+  productName String
+  description String? @db.Text
+  price       Float
+
+  Order      Order[]
+  Category   Category?  @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+  review     Review[]
+  bookmark   Bookmark[]
+
+  // Promotion   Promotion? @relation(fields: [promotionId], references: [id])
+  // promotionId Int?
+}
+
+model users {
+  id          Int           @id @default(autoincrement())
+  fullname    String
+  age         Int
+  adresse     String
+  mobilephone String
+  bookmark    Bookmark[]
+  reclamation Reclamation[]
+  review      Review[]
+}
+
+model Order {
+  id          Int        @id @default(autoincrement())
+  orderNumber String
+  price       Float
+  products    Products[]
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  products      Products[]
+  SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  subCategoryId Int?
+}
+
+model SubCategory {
+  id       Int        @id @default(autoincrement())
+  name     String
+  category Category[]
+}
+
+model Review {
+  id      Int    @id @default(autoincrement())
+  content String
+
+  Products   Products? @relation(fields: [productsId], references: [id])
+  productsId Int?
+
+  users   users? @relation(fields: [usersId], references: [id])
+  usersId Int?
+}
+
+model Bookmark {
+  id Int @id @default(autoincrement())
+
+  Products   Products? @relation(fields: [productsId], references: [id])
+  productsId Int?
+  users      users?    @relation(fields: [usersId], references: [id])
+  usersId    Int?
+}
+
+model Reclamation {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  status      String
+
+  users   users? @relation(fields: [usersId], references: [id])
+  usersId Int?
+}
+
+model Promotion {
+  id          Int      @id @default(autoincrement())
+  code        String   @unique
+  description String
+  discount    Float
+  startDate   DateTime
+  endDate     DateTime
+  // products    Products[]
+}
