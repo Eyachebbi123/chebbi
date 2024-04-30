@@ -29,9 +29,9 @@ function Main() {
                         <ul className="navigation clearfix">
                             <li className="current dropdown"><Link to="#">Home</Link>
                                 <ul>
-                                    <li><Link to="/">Home version 1</Link></li>
-                                    <li><Link to="/hometwo">Home version 2</Link></li>
-                                    <li><Link to="/">Home 3 Video Hero</Link></li>
+                                    <li><Link to="/">Home </Link></li>
+                                    {/* <li><Link to="/hometwo">Home version 2</Link></li>
+                                    <li><Link to="/">Home 3 Video Hero</Link></li> */}
                                 </ul>
                             </li>
                             <li className="dropdown"><Link to="/menu">Menus</Link>

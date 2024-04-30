@@ -17,6 +17,7 @@ import drink6 from '../../../assets/images/resource/drink-6.png'
 
 
 function Deliciousmenu() {
+    
     return (
         <>
             <section className="menu-section">

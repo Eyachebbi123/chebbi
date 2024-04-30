@@ -17,6 +17,10 @@ import Homethree from '../components/Homethree/Homethree'
 import Signup from '../components/Auth/Signup';
 import Login from '../components/Auth/Login';
 
+import CartCheckout from '../components/Checkout/main';
+import ProductDetail from '../product.details/ProductDetails';
+import Reservation from '../components/Allmenus/FirstMenu/Reservation';
+
 function Index() {
 
   const [homepage, sethomepage] = useState(false)
@@ -39,6 +43,7 @@ function Index() {
       {homepage && <Header/>}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="productDetail/:id" element={<ProductDetail />} />
         <Route path="/hometwo" element={<Hometwo />} />
         <Route path="/homethree" element={<Homethree />} />
         <Route path="/menu" element={<Menu />} />
@@ -49,9 +54,11 @@ function Index() {
         <Route path="/about" element={<About />} />
         <Route path="/ourchefs" element={<Chefs />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/reservation" element={<Book />} />
+        <Route path="/reservation" element={<Reservation />} />
+        
         <Route path="/login" element={<Login/>} />
         <Route path="/sign-up" element={<Signup />} />
+        <Route path="/CartCheckout" element={<CartCheckout />} />
       </Routes>
       <Footer />
     </>

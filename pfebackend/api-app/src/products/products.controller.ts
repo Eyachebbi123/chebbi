@@ -12,12 +12,20 @@ export class ProductsController {
     return this.productsService.create(createProductDto);
   }
 
+  @Get(':title')
+  findAllByC(@Param('title') title:string) {
+    return this.productsService.findAllByCategory(title);
+  }
   @Get()
   findAll() {
     return this.productsService.findAll();
   }
+  // @Get(':title/:subTitle')
+  // findAllByCetSub(@Param('title') @Param('subTitle') title:string,subTitle:string) {
+  //   return this.productsService.findAllByCategoryetSub(title,subTitle);
+  // }
 
-  @Get(':id')
+  @Get('findOne/:id')
   findOne(@Param('id') id: string) {
     return this.productsService.findOne(+id);
   }

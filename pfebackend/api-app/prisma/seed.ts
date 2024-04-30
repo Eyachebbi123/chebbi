@@ -12,17 +12,70 @@ async function main() {
 
     const categoryIds = []
 
-    const name = ["Fruit", "Salads", "Drinks", "Grills and soup", "Morning", "Lunch"]
+    const name = ["Fruit", "Salads", "Drinks", "Grills and soup", "Morning", "Lunch","dinner"]
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 7; i++) {
         const category = await prisma.category.create({
             data: {
-                name: name[Math.floor(Math.random() * name.length)]
+                name: name[i]
             }
         })
         categoryIds.push(category.id)
 
     }
+    // const subcategoryIds = []
+
+    // const namet = ["Fruit salad","boards","fruit smothie","healthy fruit ice cream","freshness","another salads"]
+
+    // for (var i = 0; i < 6; i++) {
+    //     const subcategory = await prisma.subCategory.create({
+    //         data: {
+    //             name: namet[i],
+    //             categoryId: categoryIds[Math.floor(Math.random() * categoryIds.length)]
+    //         }
+    //     })
+    //     subcategoryIds.push(subcategory.id)
+
+    // }
+    const FruitSalade = await prisma.subCategory.create({
+        data:{
+            name:"Fruit salad",
+            categoryId:1
+        }
+    })
+    const board = await prisma.subCategory.create({
+        data:{
+            name:"board",
+            categoryId:1
+        }
+    })
+    const Fruitsmothie = await prisma.subCategory.create({
+        data:{
+            name:"Fruit smothie",
+            categoryId:1
+        }
+    })
+    const healthyfruitIceCream = await prisma.subCategory.create({
+        data:{
+            name:"healthy fruit ice cream",
+            categoryId:1
+        }
+    })
+    const freshness = await prisma.subCategory.create({
+        data:{
+            name:"freshness",
+            categoryId:2
+        }
+    })
+    const anotherSalads= await prisma.subCategory.create({
+        data:{
+            name:"another salads",
+            categoryId:2
+        }
+    })
+
+
+    
 
     const productIds = []
     for (var i = 0; i < dataProducts.length - 1; i++) {
@@ -31,7 +84,9 @@ async function main() {
                 productName: dataProducts[i].productName,
                 description: dataProducts[i].description,
                 price: dataProducts[i].price,
-                categoryId: categoryIds[Math.floor(Math.random() * categoryIds.length)]
+                categoryId:  dataProducts[i].categoryId,
+                subCategoryId: dataProducts[i].subcategoryId,
+                imageURL:dataProducts[i].imageURL
             }
         });
         productIds.push(products.id)
@@ -45,6 +100,8 @@ async function main() {
                 age: user.age,
                 adresse: user.adresse,
                 mobilephone: user.mobilephone,
+                email:user.email,
+                mdp:user.mdp
             }
         });
         usersIds.push(users.id)

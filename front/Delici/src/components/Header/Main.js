@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/resource/logoo.png'
 import logonew from '../../assets/images/resource/logoo.png'
 import imgone from '../../assets/images/resource/menu-image-1.jpg'
 import imgtwo from '../../assets/images/resource/menu-image-2.jpg'
 import Imgthree from '../../assets/images/resource/menu-image-3.jpg'
 import Imgfour from '../../assets/images/resource/menu-image-4.jpg'
+
 import { IoCartOutline } from "react-icons/io5";
 function Main() {
 
@@ -47,7 +48,7 @@ function Main() {
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
     })
-
+const navigate=useNavigate()
     return (
         <>
             {active &&
@@ -63,9 +64,9 @@ function Main() {
                         <ul className="navigation clearfix">
                             <li className="current dropdown"><Link to="#" onClick={() => setShow(show === true ? false : true)}>Home<button type="button" className="btn-expander"><i className="far fa-angle-down"></i></button></Link>
                                 <ul style={{ display: show ? "block" : "none" }}>
-                                    <li><Link to="/" onClick={() => setActive(false)}>Home 1 Left Header</Link></li>
-                                    <li><Link to="/hometwo" onClick={() => setActive(false)}>Home 1 Center Header</Link></li>
-                                    <li><Link to="/homethree" onClick={() => setActive(false)}>Home 3 Video Hero</Link></li>
+                                    <li><Link to="/" onClick={() => setActive(false)}>Home </Link></li>
+                                    {/* <li><Link to="/hometwo" onClick={() => setActive(false)}>Home 1 Center Header</Link></li>
+                                    <li><Link to="/homethree" onClick={() => setActive(false)}>Home 3 Video Hero</Link></li> */}
                                 </ul>
                             </li>
                             <li className="dropdown"><Link to="#" onClick={() => setMenu(menu === true ? false : true)} >Menus<button type="button" className="btn-expander"><i className="far fa-angle-down"></i></button></Link>
@@ -78,7 +79,7 @@ function Main() {
                             </li>
                             <li><Link to="/about" onClick={() => setActive(false)}>About Us</Link></li>
                             <li><Link to="/ourchefs" onClick={() => setActive(false)}>Our chefs</Link></li>
-                            <li className="dropdown"><Link to="/" onClick={() => setPage(page === true ? false : true)}>Pages<button type="button" className="btn-expander"><i className="far fa-angle-down"></i></button></Link>
+                            {/* <li className="dropdown"><Link to="/" onClick={() => setPage(page === true ? false : true)}>Pages<button type="button" className="btn-expander"><i className="far fa-angle-down"></i></button></Link>
                                 <ul style={{ display: page ? "block" : "none" }}>
                                     <li><Link to="/menuone" onClick={() => setActive(false)}>Dropdown Menu 1</Link></li>
                                     <li><Link to="/menutwo" onClick={() => setActive(false)}>Dropdown Menu 2</Link></li>
@@ -95,8 +96,8 @@ function Main() {
                                         </ul>
                                     </li>
                                     <li><Link to="#" onClick={() => setActive(false)}> Dropdown Lorem 5 </Link></li>
-                                </ul>
-                            </li>
+                                </ul> */}
+                            {/* </li> */}
                             <li><Link to="/contact" onClick={() => setActive(false)}> Contact </Link></li>
                         </ul>
                     </div>
@@ -237,7 +238,7 @@ function Main() {
 
                                     <Link to="/reservation" className="theme-btn btn-style-one clearfix rounded">
                                         <span className="btn-wrap">
-                                            <span className="text-one">Subscribe</span>
+                                            <span className="text-one" onClick={()=>navigate("Reservation")}>Subscribe</span>
                                             <span className="text-two">Subscribe</span>
                                         </span>
                                     </Link>

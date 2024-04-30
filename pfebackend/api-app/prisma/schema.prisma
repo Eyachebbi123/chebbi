@@ -24,9 +24,12 @@ model Products {
   categoryId Int?
   review     Review[]
   bookmark   Bookmark[]
+  imageURL  String? @db.Text
 
   // Promotion   Promotion? @relation(fields: [promotionId], references: [id])
   // promotionId Int?
+  SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  subCategoryId Int?
 }
 
 model users {
@@ -35,6 +38,8 @@ model users {
   age         Int
   adresse     String
   mobilephone String
+  email       String        @unique
+  mdp         String
   bookmark    Bookmark[]
   reclamation Reclamation[]
   review      Review[]
@@ -51,15 +56,17 @@ model Category {
   id   Int    @id @default(autoincrement())
   name String
 
-  products      Products[]
-  SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
-  subCategoryId Int?
+  products    Products[]
+  subcategory SubCategory[]
 }
 
 model SubCategory {
-  id       Int        @id @default(autoincrement())
-  name     String
-  category Category[]
+  id   Int    @id @default(autoincrement())
+  name String
+
+  Category   Category?  @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+  product    Products[]
 }
 
 model Review {
@@ -92,12 +99,12 @@ model Reclamation {
   usersId Int?
 }
 
-model Promotion {
-  id          Int      @id @default(autoincrement())
-  code        String   @unique
-  description String
-  discount    Float
-  startDate   DateTime
-  endDate     DateTime
-  // products    Products[]
-}
+// model Promotion {
+//   id          Int      @id @default(autoincrement())
+//   code        String   @unique
+//   description String
+//   discount    Float
+//   startDate   DateTime
+//   endDate     DateTime
+//   // products    Products[]
+// }

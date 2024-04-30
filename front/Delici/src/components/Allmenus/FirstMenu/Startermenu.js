@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect }  from 'react'
 import { Link } from 'react-router-dom'
 import bgone from '../../../assets/images/background/spark.png'
 import bgtwo from '../../../assets/images/background/spark.png'
@@ -12,8 +12,23 @@ function Startermenu() {
     console.log(products, "products");
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getProducts())
+        dispatch(getProducts('Fruit'))
+        
     }, [])
+    
+    
+
+    const board = products?.filter((elem) => {
+        return elem.SubCategory.name === "board"
+    })
+
+    console.log(board, "board");
+
+    const FruitSalade = products?.filter((elem) => {
+        return elem.SubCategory.name === "Fruit Salad"
+    })
+
+    console.log(FruitSalade, "Fruit Salad");
 
     return (
         <>
@@ -37,11 +52,11 @@ function Startermenu() {
                         </div>
                         <div className="menu-col col-lg-5 col-md-12 col-sm-12">
                             <div className="inner">
-                                {products.map((elem) => (
+                                {FruitSalade.map((elem) => (
                                     <div className="dish-block">
                                         <div className="inner-box">
-                                            <div className="title clearfix"><div className="ttl clearfix"><h5><Link to="#">Tropical Fruit Salad</Link></h5></div><div className="price"><span>13dt</span></div></div>
-                                            <div className="text desc"><Link to="#">pineapple, mango , kiwi ,optional: shredded coconut for garnish.</Link></div>
+                                            <div className="title clearfix"><div className="ttl clearfix"><h5><Link to={`/productDetail/${elem.id}`}>{elem.productName}</Link></h5></div><div className="price"><span>13dt</span></div></div>
+                                            <div className="text desc"><Link to="#">{elem.description}</Link></div>
                                         </div>
                                     </div>
                                 ))}
@@ -77,34 +92,16 @@ function Startermenu() {
                         </div>
                         <div className="menu-col col-lg-5 col-md-12 col-sm-12">
                             <div className="inner">
+                            {board?.map((elem) => (
 
                                 <div className="dish-block">
                                     <div className="inner-box">
-                                        <div className="title clearfix"><div className="ttl clearfix"><h5><Link to="#">Classic Fruit Board</Link></h5></div><div className="price"><span>25dt</span></div></div>
-                                        <div className="text desc"><Link to="#">watermelon , strawberries, oranges, kiwi, bunch of grapes, pineapple, mint leaves for a pop of color.</Link></div>
+                                        <div className="title clearfix"><div className="ttl clearfix"><h5><Link to={`/productDetail/${elem.id}`}>{elem.productName}</Link></h5></div><div className="price"><span>25dt</span></div></div>
+                                        <div className="text desc"><Link to="#">{elem.description}</Link></div>
                                     </div>
                                 </div>
+                                 ))}
 
-                                <div className="dish-block">
-                                    <div className="inner-box">
-                                        <div className="title clearfix"><div className="ttl clearfix"><h5><Link to="#">Tropical Fruit Board <span className="s-info">SEASONAL</span></Link></h5></div><div className="price"><span>30dt</span></div></div>
-                                        <div className="text desc"><Link to="#">mango , papaya, pineapple,  coconut flakes, banana, kiwi </Link></div>
-                                    </div>
-                                </div>
-
-                                <div className="dish-block">
-                                    <div className="inner-box">
-                                        <div className="title clearfix"><div className="ttl clearfix"><h5><Link to="#">Berries and Cream Board</Link></h5></div><div className="price"><span>25dt</span></div></div>
-                                        <div className="text desc"><Link to="#">Strawberries, blueberries, raspberries, blackberries,Greek yogurt,Sprinkle with granola or crushed nuts , Honey </Link></div>
-                                    </div>
-                                </div>
-
-                                <div className="dish-block">
-                                    <div className="inner-box">
-                                        <div className="title clearfix"><div className="ttl clearfix"><h5><Link to="#">Citrus Fruit Board <span className="s-info">NEW</span></Link></h5></div><div className="price"><span>34dt</span></div></div>
-                                        <div className="text desc"><Link to="#">orange, grapefruit, tangerine, lemon, sprinkle with a pinch of sea salt .</Link></div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

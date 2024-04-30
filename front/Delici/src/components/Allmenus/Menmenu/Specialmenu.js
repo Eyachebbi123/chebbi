@@ -13,9 +13,20 @@ import Five from '../../../assets/images/resource/menu-image-15.jpg'
 import Six from '../../../assets/images/resource/menu-image-16.jpg'
 import Seven from '../../../assets/images/resource/menu-image-17.jpg'
 import Eight from '../../../assets/images/resource/menu-image-18.jpg'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { getProducts } from '../../../store/product'
 
 function Specialmenu() {
+  // const products = useSelector((state) => state.product.products)
+  //   console.log(products, "products");
+  //   const dispatch = useDispatch()
+  //   useEffect(() => {
+  //       dispatch(getProducts('grills and soup'))
+  //   }, [])
+  //   const  grillsandsoup= products?.filter((elem) => {
+  //       return elem.Category.name === "grills and soup"
+  //       console.log(grillsandsoup, "grills and soup");
+  //   })
 
   return (
     <>
@@ -34,7 +45,7 @@ function Specialmenu() {
               <div className="pattern-image">
                 <img src={require("../../../assets/images/icons/separator.svg").default} alt="" title="" />
               </div>
-              <h2>Our grills and soups</h2>
+              <h2>Grill and soups !</h2>
             </div>
             <div className="row clearfix">
               <div className="offer-block-three col-xl-3 col-lg-4 col-md-6 col-sm-12">

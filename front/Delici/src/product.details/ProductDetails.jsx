@@ -1,29 +1,36 @@
-import React from 'react';
-import "./ProductDetails.css"; 
+import React, { useEffect } from 'react';
+import "./ProductDetails.css";
+import { useParams } from 'react-router-dom';
+import { getOneProduct } from '../store/product';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ProductDetail = () => {
+  const { id } = useParams()
+
+  const product = useSelector((state) => state.product.product)
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getOneProduct(id))
+  }, [])
+console.log(product,"on");
+
+
+
   return (
     <div className="wrapper">
       <div className="product-img">
-        <img src="https://tfpj-s3.troisfoisparjour.com/app/uploads/2023/05/26120522/21-fev-blogue3593-modifier-l.jpg" height="420" width="327" alt="Harvest Vase" />
+        <img src={product.imageURL} height="420" width="327"  />
+        
       </div>
       <div className="product-info">
         <div className="product-text">
-          <h1>Pink Smothie </h1>
-          <h2>Freshness</h2>
-          <p>Pyunkang Yul Essence Toner is an ingenious, richly hydrating formula designed to deliver 
-           nutrient-filled moisture  to skin. <br/>
-             91.3% of this toner is astragalus<br />
-             membranaceus root extract, full of skin
-             -beneficial betaine and minerals. With the<br />
-             antioxidant, soothing, nutrient-boosting properties<br/>
-              of the root extract, this K-<br />
-             beauty favorite toner quickly absorbs to hydrate the skin.<br />
-
-              allowing room for growth.<br/> </p>
+          <h1>{product.productName}</h1>
+          <h2>{product.SubCategoryName}</h2>
+          <p>{product.description} </p>
         </div>
         <div className="product-price-btn">
-          <p><span className='pr'>20</span>dt</p>
+          <p><span className='pr'>{product.price}</span>dt</p>
           <button type="button">Add to card</button>
         </div>
       </div>
