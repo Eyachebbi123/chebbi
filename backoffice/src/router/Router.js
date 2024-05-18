@@ -49,7 +49,7 @@ export default function Router() {
                     <Route path="category" element={<Category />}>
 
                         <Route index element={<CategoryList />} />
-                        <Route path="CategoryDetail" element={<CategoryDetail />} />
+                        <Route path="CategoryDetail/:id" element={<CategoryDetail />} />
                         <Route path="add-category" element={<AddCategory />} />
                     </Route>
                     <Route path="Employees" element={<Employees />}>

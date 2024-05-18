@@ -11,6 +11,7 @@ import { GridActionsCellItem } from '@mui/x-data-grid/components/cell/GridAction
 import { IoEye } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux"
 import { getcategories } from '../../../store/category';
+import { useNavigate } from 'react-router-dom';
 export default function CategoryList() {
 
     const categories = useSelector((state) => state.category?.categories)
@@ -21,6 +22,7 @@ export default function CategoryList() {
         dispatch(getcategories())
 
     }, [])
+    const navigate =useNavigate()
     React.useEffect(() => {
 
         setRows(categories)
@@ -46,7 +48,7 @@ export default function CategoryList() {
         //     width: 200,
         //     editable: true,
         //     valueGetter: (value,row) => {
-                
+
         //         return row.subcategory.map((elem) => (
         //             elem.name
         //         )).join(", ");
@@ -58,7 +60,7 @@ export default function CategoryList() {
             headerName: 'Actions',
             getActions: (params) => [
                 <GridActionsCellItem icon={<FcFullTrash />} label="Delete" />,
-                <GridActionsCellItem icon={<IoEye />} label="Print" />,
+                <GridActionsCellItem icon={<IoEye />} label="Print"onClick={()=>navigate(`CategoryDetail/${params.row.id}`)}/>,
             ]
         }
 

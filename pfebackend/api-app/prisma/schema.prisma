@@ -108,3 +108,21 @@ model Reclamation {
 //   endDate     DateTime
 //   // products    Products[]
 // }
+
+model employees {
+  id          Int           @id @default(autoincrement())
+  Name    String
+  mobilephone String
+  email       String        
+}
+
+model clients {
+  id          Int           @id @default(autoincrement())
+  fullName    String
+  mobilephone String
+  email       String  
+  age         String  
+  adress     String
+  password   String
+
+}

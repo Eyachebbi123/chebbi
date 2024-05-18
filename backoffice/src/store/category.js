@@ -11,12 +11,14 @@ export const getcategories = createAsyncThunk("getCategories", async () => { // 
     console.log(error);
   }
 });
-export const getcategory = createAsyncThunk("getcategory", async (id) => { // action 
+export const getcategory = createAsyncThunk("getcategoryyy", async(id) => { // action 
   try {
-    const res = await axios.get(`http://127.0.0.1:7000/categories/${id});`);
+    const res = await axios.get(`http://127.0.0.1:7000/categories/${id})`);
+    console.log(id,'idddddddddddddddddddddddddddddd');
+    console.log(res,"cateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     return res.data; // action.payload
   } catch (error) {
-    console.log(error);
+    console.log(error,"errrrrrrrrrr");
   }
 });
 
