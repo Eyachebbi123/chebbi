@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '../../../componenets/Autocomplete';
+import Autocomplete from '../../../components/Autocomplete';
 import { FcFullTrash } from "react-icons/fc";
 import { GridActionsCellItem } from '@mui/x-data-grid/components/cell/GridActionsCellItem';
 import { IoEye } from "react-icons/io5";
@@ -26,7 +26,7 @@ export default function CategoryList() {
     React.useEffect(() => {
 
         setRows(categories)
-    }, [rows])
+    }, [])
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -69,7 +69,7 @@ export default function CategoryList() {
 
     return (
         <div>
-            <div className='d-flex justify-content-end'>
+            {/* <div className='d-flex justify-content-end'>
 
                 <button className='btn btn-primary my-4' onClick={handleShow}>Add Category</button>
             </div>
@@ -120,7 +120,7 @@ export default function CategoryList() {
                     </Button>
                     <Button variant="primary">Understood</Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
 
 
 

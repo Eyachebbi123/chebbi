@@ -123,28 +123,30 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '../../../componenets/Autocomplete';
+import Autocomplete from '../../../components/Autocomplete';
 import { FcFullTrash } from "react-icons/fc";
 import { IoEye } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux"
-import { getProducts } from '../../../store/product';
+import { getAllProducts, getProducts } from '../../../store/product';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProductList() {
 
-    const categories = useSelector((state) => state.category?.categories)
+    const products = useSelector((state) => state.product?.allProducts)
     const [rows, setRows] = useState([])
-    console.log(categories, "categ");
+    // console.log(categories, "categ");
     const dispatch = useDispatch()
-    React.useEffect(() => {
-        dispatch(getProducts())
+    useEffect(() => {
+        dispatch(getAllProducts())
 
     }, [])
     const navigate =useNavigate()
     React.useEffect(() => {
 
-        setRows(getProducts)
+        setRows(products)
     }, [rows])
+    console.log(rows,"rows");
+    console.log(products,"products");
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -153,31 +155,34 @@ export default function ProductList() {
 
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 90 },
         {
-            field: 'name',
+            field: 'Image',
+            headerName: 'Image',
+            width: 70,
+            editable: true,
+            renderCell: (params) => (<img src={params.row.imageURL} width={35} height={35}/>)
+            
+        },
+        // { field: 'id', headerName: 'ID', width: 90 },
+        {
+            field: 'productName',
             headerName: 'Name',
             width: 150,
             editable: true,
         },
         {
-          field: 'Price',
+          field: 'price',
           headerName: 'Price',
           width: 150,
           editable: true,
       },
       {
-        field: 'Description',
+        field: 'description',
         headerName: 'Description',
         width: 150,
         editable: true,
     },
-    {
-      field: 'Image',
-      headerName: 'Image',
-      width: 150,
-      editable: true,
-  },
+    
         {
             field: 'actions',
             headerName: 'Actions',

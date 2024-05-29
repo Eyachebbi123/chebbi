@@ -17,7 +17,7 @@ export const getAllProducts = createAsyncThunk("getAllProducts", async () => { /
   
   try {
     const res = await axios.get(`http://localhost:7000/products`);
-    console.log(res.data,"resssssssssss");
+    console.log(res.data,"getAllPro");
     return res.data; // action.payload
   } catch (error) {
     console.log(error);

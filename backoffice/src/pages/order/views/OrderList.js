@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '../../../componenets/Autocomplete';
+import Autocomplete from '../../../components/Autocomplete';
 import { FcFullTrash } from "react-icons/fc";
 import { IoEye } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux"

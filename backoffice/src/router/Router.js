@@ -5,7 +5,7 @@ import Product from "../pages/product/Product";
 import ProductList from "../pages/product/views/ProductList";
 import ProductDetail from "../pages/product/views/ProductDetail";
 import AddProduct from "../pages/product/views/AddProduct";
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../pages/dashboard/index";
 
 
 import ListEmployees from "../pages/Employees/Employees";
