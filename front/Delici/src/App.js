@@ -5,6 +5,7 @@ import './assets/css/responsive.css'
 import { Provider } from "react-redux";
 
 import { store } from "./store";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       
       <Router>
         <Routing />
+   
       </Router>
    
    </Provider>

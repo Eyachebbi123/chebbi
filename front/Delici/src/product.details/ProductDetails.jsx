@@ -3,10 +3,12 @@ import "./ProductDetails.css";
 import { useParams } from 'react-router-dom';
 import { getOneProduct } from '../store/product';
 import { useDispatch, useSelector } from 'react-redux';
-
+import {useCart } from "react-use-cart";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ProductDetail = () => {
   const { id } = useParams()
-
+  const { addItem } = useCart();
   const product = useSelector((state) => state.product.product)
 
   const dispatch = useDispatch()
@@ -31,9 +33,16 @@ console.log(product,"on");
         </div>
         <div className="product-price-btn">
           <p><span className='pr'>{product.price}</span>dt</p>
-          <button type="button">Add to card</button>
+          <button type="button" onClick={() => {
+            addItem(product)
+            toast.success("produit ajouté avec sucess!");
+            // toast.error("error , on ne peut pas ajouter ce produit pour le moment!");
+
+          }}>Add to card</button>
         </div>
       </div>
+      <ToastContainer />
+
     </div>
   );
 };

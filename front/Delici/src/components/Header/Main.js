@@ -8,8 +8,10 @@ import Imgthree from '../../assets/images/resource/menu-image-3.jpg'
 import Imgfour from '../../assets/images/resource/menu-image-4.jpg'
 
 import { IoCartOutline } from "react-icons/io5";
+import { useCart } from 'react-use-cart'
 function Main() {
-
+    const cart= useCart();
+console.log(cart,"carttt");
     const [active, setActive] = useState();
     const [show, setShow] = useState();
     const [menu, setMenu] = useState();
@@ -48,7 +50,7 @@ function Main() {
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
     })
-const navigate=useNavigate()
+    const navigate = useNavigate()
     return (
         <>
             {active &&
@@ -225,12 +227,37 @@ const navigate=useNavigate()
                                 </div>
 
                                 <div className="d-flex ">
-                                    <Link to="/reservation" className="theme-btn btn-style-one clearfix mx-3 rounded">
+                                    {/* <Link to="/reservation" className="theme-btn btn-style-one clearfix mx-3 rounded">
+
+
+                                        <span className="btn-wrap d-flex">
+                                            <span className="text-one"><IoCartOutline size={20} /></span>
+                                            <span className="text-one"><IoCartOutline size={20} /></span>
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded bg-danger p-3" style={{backgroundColor:"red",color:"white",padding:"10px"}}>
+                                            ({totalUniqueItems})
+
+                                            </span>
+                                        </span>
+
+
+                                    </Link> */}
+                                    <Link to="/cartcheckout" className="theme-btn btn-style-one clearfix mx-3 rounded">
 
 
                                         <span className="btn-wrap">
-                                            <span className="text-one"><IoCartOutline size={20} /></span>
+                                            <span className="text-one"><IoCartOutline size={20} />
+                                            
+                                            <span style={{backgroundColor:"red",color:"white",padding:"5px",borderRadius:"30%"}}>
+                                            {cart.totalUniqueItems}
+
+                                            </span>
+                                            </span>
+                                            
                                             <span className="text-two"><IoCartOutline size={20} /></span>
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded bg-danger p-3" style={{backgroundColor:"red",color:"white",padding:"10px"}}>
+                                            ({cart.totalUniqueItems})
+
+                                            </span>
                                         </span>
 
 
@@ -238,7 +265,7 @@ const navigate=useNavigate()
 
                                     <Link to="/reservation" className="theme-btn btn-style-one clearfix rounded">
                                         <span className="btn-wrap">
-                                            <span className="text-one" onClick={()=>navigate("Reservation")}>Subscribe</span>
+                                            <span className="text-one" onClick={() => navigate("Reservation")}>Subscribe</span>
                                             <span className="text-two">Subscribe</span>
                                         </span>
                                     </Link>

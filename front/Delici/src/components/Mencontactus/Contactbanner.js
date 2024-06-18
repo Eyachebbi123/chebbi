@@ -4,6 +4,7 @@ import Iframe from 'react-iframe'
 import bg25 from '../../assets/images/background/avocat.png'
 import bg6 from '../../assets/images/background/avocat.png'
 import restro from '../../assets/images/background/kitchen2.png'
+import { toast } from 'react-toastify'
 
 function Contactbanner() {
     return (
@@ -85,12 +86,14 @@ function Contactbanner() {
                                             </div>
 
                                             <div className="form-group">
-                                                <button type="submit" className="theme-btn btn-style-one clearfix">
-                                                    <span className="btn-wrap">
-                                                        <span className="text-one">send your message</span>
-                                                        <span className="text-two">send your message</span>
-                                                    </span>
-                                                </button>
+                                                {/* <button  className="theme-btn btn-style-one "> */}
+                                                    {/* <span className="btn-wrap"> */}
+                                                        {/* <span className="text-one" onClick={()=>{toast.success("message envoyée avec succées!")}}>send your message</span> */}
+                                                        {/* <span className="text-two" onClick={()=>toast.success("message envoyée avec succées!")}>send your message</span> */}
+                                                        {/* <button>send</button> */}
+                                                    {/* </span> */}
+                                                {/* </button> */}
+                                                <p className='btn w-25' onClick={()=>{toast.success("message envoyée avec succées!")}} style={{background:"beige"}}>Send</p>
                                             </div>
                                         </div>
                                     </form>

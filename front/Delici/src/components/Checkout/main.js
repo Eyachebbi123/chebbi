@@ -11,243 +11,118 @@ import {
   MDBRow,
   MDBTypography,
 } from "mdb-react-ui-kit";
+import { useCart } from "react-use-cart";
 
 export default function CartCheckout() {
+  const {
+    isEmpty,
+    totalUniqueItems,
+    items,
+    cartTotal,
+    updateItemQuantity,
+    removeItem,
+  } = useCart();
+  console.log(items, "item");
   return (
-    <section className="h-100 h-custom" style={{ backgroundColor: "#eee" }}>
-      <MDBContainer className="h-100 py-5 text-dark">
-        <MDBRow className="justify-content-center align-items-center h-100">
-          <MDBCol>
-            <MDBCard className="shopping-cart" style={{ borderRadius: "15px" }}>
-              <MDBCardBody className="text-black">
-                <MDBRow>
-                  <MDBCol lg="7" className="px-5 py-4">
-                    <MDBTypography
-                      tag="h3"
-                      className="mb-5 pt-2 text-center fw-bold text-uppercase"
-                    >
-                      Your products
-                    </MDBTypography>
-
-                    <div className="d-flex align-items-center mb-5">
-                      <div className="flex-shrink-0">
-                        <MDBCardImage
-                          src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp"
-                          fluid
-                          style={{ width: "150px" }}
-                          alt="Generic placeholder image"
-                        />
+    <section class="h-100 h-custom" style={{ backgroundColor: "#d2c9ff", color: "black" }}>
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12">
+            <div class="card card-registration card-registration-2" style={{ borderRadius: "15px" }}>
+              <div class="card-body p-0">
+                <div class="row g-0">
+                  <div class="col-lg-8">
+                    <div class="p-5">
+                      <div class="d-flex justify-content-between align-items-center mb-5">
+                        <h1 class="fw-bold mb-0 text-dark">Shopping Cart</h1>
+                        <h6 class="mb-0 text-muted">{items.length} items</h6>
                       </div>
 
-                      <div className="flex-grow-1 ms-3">
-                        <a href="#!" className="float-end text-black">
-                          <MDBIcon fas icon="times" />
-                        </a>
-                        <MDBTypography tag="h5" className="text-primary">
-                          Cesar Salad
-                        </MDBTypography>
-                        {/* <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
-                          Color: white
-                        </MDBTypography> */}
+                      {isEmpty && <p>Your cart is empty</p>}
+                      {items.map((elem) => (
+                        <>
+                          <hr class="my-4" />
+                          <div class="row mb-4 d-flex justify-content-between align-items-center">
+                            <div class="col-md-2 col-lg-2 col-xl-2">
+                              <img
+                                src={elem.imageURL}
+                                class="img-fluid rounded-3" alt="Cotton T-shirt" />
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3">
+                              <h6 class="text-muted text-dark">{elem.productName
+                              }</h6>
+                              <h6 class="mb-0 text-dark">{elem.description}</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()" onClick={() => updateItemQuantity(elem.id, elem.quantity - 1)}>
+                                <i class="fas fa-minus"></i>
+                              </button>
 
-                        <div className="d-flex align-items-center">
-                          <p className="fw-bold mb-0 me-5 pe-3">20dt</p>
+                              <input id="form1" name="quantity" value={elem.quantity} type="number"
+                                class="form-control form-control-sm text-dark" style={{ width: "50px" }} />
 
-                          <div className="def-number-input number-input safari_only">
-                            <button className="minus"></button>
-                            <input
-                              className="quantity fw-bold text-black"
-                              min={0}
-                              defaultValue={1}
-                              type="number"
-                            />
-                            <button className="plus"></button>
+                              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
+                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()" onClick={() => updateItemQuantity(elem.id, elem.quantity + 1)}>
+                                <i class="fas fa-plus"></i>
+                              </button>
+                            </div>
+                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                              <h6 class="mb-0 text-dark "> {elem.price} dt</h6>
+                            </div>
+                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                              <i class="fas fa-times" onClick={() => removeItem(elem.id)}></i>
+                            </div>
                           </div>
-                        </div>
+                        </>
+
+                      ))}
+
+
+                      <hr class="my-4" />
+
+                      <div class="pt-5">
+                        <h6 class="mb-0"><a href="#!" class="text-body"><i
+                          class="fas fa-long-arrow-alt-left me-2 text-dark"></i>Back to shop</a></h6>
                       </div>
                     </div>
+                  </div>
+                  <div class="col-lg-4 bg-body-tertiary">
+                    <div class="p-5">
+                      <h3 class="fw-bold mb-5 mt-2 pt-1 text-dark">Summary</h3>
+                      <hr class="my-4" />
 
-                    <div className="d-flex align-items-center mb-5">
-                      <div className="flex-shrink-0">
-                        <MDBCardImage
-                          src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/6.webp"
-                          fluid
-                          style={{ width: "150px" }}
-                          alt="Generic placeholder image"
-                        />
+                      <div class="d-flex justify-content-between mb-4">
+                        <h5 class="text-uppercase text-dark">items {items.length}</h5>
+                        <h5 className="text-dark">{cartTotal} dt</h5>
+                      </div>
+                      <div class="d-flex justify-content-between mb-4">
+
+                        <h5 class="text-uppercase mb-3 text-dark">Shipping</h5>
+                        <h5 className="text-dark">7 dt</h5>
+
                       </div>
 
-                      <div className="flex-grow-1 ms-3">
-                        <a href="#!" className="float-end text-black">
-                          <MDBIcon fas icon="times" />
-                        </a>
-                        <MDBTypography tag="h5" className="text-primary">
-                          Exotic smothie
-                        </MDBTypography>
-                        {/* <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
-                          Color: red
-                        </MDBTypography> */}
 
-                        <div className="d-flex align-items-center">
-                          <p className="fw-bold mb-0 me-5 pe-3">15dt</p>
 
-                          <div className="def-number-input number-input safari_only">
-                            <button className="minus"></button>
-                            <input
-                              className="quantity fw-bold text-black"
-                              min={0}
-                              defaultValue={1}
-                              type="number"
-                            />
-                            <button className="plus"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                      <hr class="my-4" />
 
-                    <div className="d-flex align-items-center mb-5">
-                      <div className="flex-shrink-0">
-                        <MDBCardImage
-                          src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp"
-                          fluid
-                          style={{ width: "150px" }}
-                          alt="Generic placeholder image"
-                        />
+                      <div class="d-flex justify-content-between mb-5">
+                        <h5 class="text-uppercase text-dark">Total price</h5>
+                        <h5 className="text-dark">{cartTotal + 7} dt</h5>
                       </div>
 
-                      <div className="flex-grow-1 ms-3">
-                        <a href="#!" className="float-end text-black">
-                          <MDBIcon fas icon="times" />
-                        </a>
-                        <MDBTypography tag="h5" className="text-primary">
-                         Fruit Salad
-                        </MDBTypography>
-                        {/* <MDBTypography tag="h6" style={{ color: "#9e9e9e" }}>
-                          Color: rose pink
-                        </MDBTypography> */}
+                      <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg"
+                        data-mdb-ripple-color="dark">Register</button>
 
-                        <div className="d-flex align-items-center">
-                          <p className="fw-bold mb-0 me-5 pe-3">15dt</p>
-
-                          <div className="def-number-input number-input safari_only">
-                            <button className="minus"></button>
-                            <input
-                              className="quantity fw-bold text-black"
-                              min={0}
-                              defaultValue={2}
-                              type="number"
-                            />
-                            <button className="plus"></button>
-                          </div>
-                        </div>
-                      </div>
                     </div>
-
-                    <hr
-                      className="mb-4"
-                      style={{
-                        height: "2px",
-                        backgroundColor: "#e4c590",
-                        opacity: 1,
-                      }}
-                    />
-
-                    <div className="d-flex justify-content-between px-x">
-                      <p className="fw-bold">Discount:</p>
-                      <p className="fw-bold">8dt</p>
-                    </div>
-                    <div
-                      className="d-flex justify-content-between p-2 mb-2"
-                      style={{ backgroundColor: "#e4c590" }}
-                    >
-                      <MDBTypography tag="h5" className="fw-bold mb-0 text-dark">
-                        Total:
-                      </MDBTypography>
-                      <MDBTypography tag="h5" className="fw-bold mb-0 text-dark" >
-                        42dt
-                      </MDBTypography>
-                    </div>
-                  </MDBCol>
-                  <MDBCol lg="5" className="px-5 py-4">
-                    <MDBTypography
-                      tag="h3"
-                      className="mb-5 pt-2 text-center fw-bold text-uppercase"
-                    >
-                      Payment
-                    </MDBTypography>
-
-                    <form className="mb-5">
-                      <MDBInput
-                        className="mb-5 "
-                        label="Card number"
-                        type="text"
-                        size="lg"
-                        defaultValue="1234 5678 9012 3457"
-                      />
-
-                      <MDBInput 
-                        className="mb-5 "
-                        label="Name on card"
-                        type="text"
-                        size="lg"
-                        defaultValue="John Smith"
-                      />
-
-                      <MDBRow>
-                        <MDBCol md="6" className="mb-5">
-                          <MDBInput
-                            className="mb-4"
-                            label="Expiration"
-                            type="text"
-                            size="lg"
-                            minLength="7"
-                            maxLength="7"
-                            defaultValue="01/22"
-                            placeholder="MM/YYYY"
-                          />
-                        </MDBCol>
-                        <MDBCol md="6" className="mb-5">
-                          <MDBInput
-                            className="mb-4"
-                            label="Cvv"
-                            type="text"
-                            size="lg"
-                            minLength="3"
-                            maxLength="3"
-                            placeholder="&#9679;&#9679;&#9679;"
-                            defaultValue="&#9679;&#9679;&#9679;"
-                          />
-                        </MDBCol>
-                      </MDBRow>
-
-                      {/* <p className="mb-5">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit
-                        <a href="#!"> obcaecati sapiente</a>.
-                      </p> */}
-
-                      <MDBBtn block size="lg"  >
-                        Buy now 
-                        
-                      </MDBBtn>
-
-                      <MDBTypography
-                        tag="h5"
-                        className="fw-bold mb-5 text-dark"
-                        style={{ position: "absolute", bottom: "0" }}
-                      >
-                        <a href="#!" className="text-dark">
-                          <MDBIcon fas icon="angle-left me-2 text-dark" />
-                          Back to shopping
-                        </a>
-                      </MDBTypography>
-                    </form>
-                  </MDBCol>
-                </MDBRow>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
