@@ -22,7 +22,7 @@ console.log(product,"on");
   return (
     <div className="wrapper">
       <div className="product-img">
-        <img src={product.imageURL} height="420" width="327"  />
+        <img src={product.imageURL} height="420px" width="327"  />
         
       </div>
       <div className="product-info">

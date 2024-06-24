@@ -92,75 +92,75 @@ async function main() {
         productIds.push(products.id)
     }
 
-    const usersIds = []
-    for (let user of datausers) {
-        const users = await prisma.users.create({
-            data: {
-                fullname: user.fullname,
-                age: user.age,
-                adresse: user.adresse,
-                mobilephone: user.mobilephone,
-                email:user.email,
-                mdp:user.mdp
-            }
-        });
-        usersIds.push(users.id)
+    // const usersIds = []
+    // for (let user of datausers) {
+    //     const users = await prisma.user.create({
+    //         data: {
+    //             fullname: user.fullname,
+    //             age: user.age,
+    //             adresse: user.adresse,
+    //             mobilephone: user.mobilephone,
+    //             email:user.email,
+    //             mdp:user.mdp
+    //         }
+    //     });
+    //     usersIds.push(users.id)
 
-    }
-
-
-    const orderNumberIds = []
-    for (let orderr of dataorders) {
-        const order = await prisma.order.create({
-            data: {
-                orderNumber: orderr.orderNumber,
-                price: orderr.price,
-            }
-        });
-        orderNumberIds.push(order.id)
-
-    }
+    // }
 
 
-    for (let revieww of datareview) {
-        const reviewIds = []
-        const review = await prisma.review.create({
-            data: {
-                content: revieww.content,
-                productsId: productIds[Math.floor(Math.random() * productIds.length)],
-                usersId: usersIds[Math.floor(Math.random() * usersIds.length)]
-            }
-        });
-        reviewIds.push(review.id)
+    // const orderNumberIds = []
+    // for (let orderr of dataorders) {
+    //     const order = await prisma.order.create({
+    //         data: {
+    //             orderNumber: orderr.orderNumber,
+    //             price: orderr.price,
+    //         }
+    //     });
+    //     orderNumberIds.push(order.id)
+
+    // }
 
 
-    }
-    const bookmarkIds = []
-    for (let bookmark of databook) {
-        const bookmark = await prisma.bookmark.create({
-            data: {
-                productsId: productIds[Math.floor(Math.random() * productIds.length)],
-                usersId: usersIds[Math.floor(Math.random() * usersIds.length)]
-            }
+    // for (let revieww of datareview) {
+    //     const reviewIds = []
+    //     const review = await prisma.review.create({
+    //         data: {
+    //             content: revieww.content,
+    //             productsId: productIds[Math.floor(Math.random() * productIds.length)],
+    //             usersId: usersIds[Math.floor(Math.random() * usersIds.length)]
+    //         }
+    //     });
+    //     reviewIds.push(review.id)
 
 
-        });
-        bookmarkIds.push(bookmark.id)
+    // }
+    // const bookmarkIds = []
+    // for (let bookmark of databook) {
+    //     const bookmark = await prisma.bookmark.create({
+    //         data: {
+    //             productsId: productIds[Math.floor(Math.random() * productIds.length)],
+    //             usersId: usersIds[Math.floor(Math.random() * usersIds.length)]
+    //         }
 
-    }
-    const reclamationId = []
-    for (let reclamation of datarec) {
-        const reclamations = await prisma.reclamation.create({
-            data: {
-                title: reclamation.title,
-                description: reclamation.description,
-                status: reclamation.status,
-                usersId: usersIds[Math.floor(Math.random() * usersIds.length)]
-            }
-        });
-        reclamationId.push(reclamations.id)
 
-    }
+    //     });
+    //     bookmarkIds.push(bookmark.id)
+
+    // }
+    // const reclamationId = []
+    // for (let reclamation of datarec) {
+    //     const reclamations = await prisma.reclamation.create({
+    //         data: {
+    //             title: reclamation.title,
+    //             description: reclamation.description,
+    //             status: reclamation.status,
+    //             usersId: usersIds[Math.floor(Math.random() * usersIds.length)]
+    //         }
+    //     });
+    //     reclamationId.push(reclamations.id)
+
+    // }
 
     
    

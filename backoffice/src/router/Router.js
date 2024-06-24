@@ -26,6 +26,9 @@ import Clients from "../pages/Clients/Clients";
 import ClientList from "../pages/Clients/views/ClientList";
 import ClientDetail from "../pages/Clients/views/ClientDetail";
 import AddClient from "../pages/Clients/views/AddClient";
+import Contacts from "../pages/contact/Contact";
+import ContactList from "../pages/contact/views/ContactList";
+import ContactDetails from "../pages/contact/views/ContactDetails";
 
 
 export default function Router() {
@@ -37,7 +40,7 @@ export default function Router() {
                     <Route path="products" element={<Product />}>
 
                         <Route index element={<ProductList />} />
-                        <Route path="product-detail" element={<ProductDetail />} />
+                        <Route path="product-detail/:id" element={<ProductDetail />} />
                         <Route path="add-product" element={<AddProduct />} />
                     </Route>
                     <Route path="orders" element={<Order />}>
@@ -63,6 +66,13 @@ export default function Router() {
                         <Route index element={<ClientList />} />
                         <Route path="ClientDetail" element={<ClientDetail />} />
                         <Route path="add-Client" element={<AddClient />} />
+                    </Route>
+                   
+                    <Route path="Contact" element={<Contacts />}>
+
+                        <Route index element={<ContactList />} />
+                        <Route path="ClientDetail" element={<ContactDetails />} />
+               
                     </Route>
 
 

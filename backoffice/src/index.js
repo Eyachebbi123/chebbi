@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import reducer from "./helpers/store/reducer"
 import { configureStore } from '@reduxjs/toolkit';
+import { ToastContainer, toast,Pro } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 const store = configureStore({ reducer })
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +17,7 @@ root.render(
     <Provider store={store}>
 
       <Router />
+      <ToastContainer />
     </Provider>
   </React.StrictMode>
 );

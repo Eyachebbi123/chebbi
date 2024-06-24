@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   MDBBtn,
   MDBContainer,
@@ -7,51 +8,106 @@ import {
   MDBCardImage,
   MDBRow,
   MDBCol,
-  MDBIcon,
-  MDBInput
-
-}
-from 'mdb-react-ui-kit';
+  MDBInput,
+} from "mdb-react-ui-kit";
+import { login } from "../../store/auth";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+ 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const resultAction = await dispatch(login({ email, password }));
+      if (login.fulfilled.match(resultAction)) {
+        toast.success("Login successful");
+        navigate("/");
+      } else {
+        throw resultAction.payload;
+      }
+    } catch (error) {
+      console.error("Login failed", error);
+      const errorMessage = error?.message || error || "Login failed";
+      toast.error(errorMessage);
+    }
+  };
   return (
-    <MDBContainer className="my-5 text-dark">
-
+    <MDBContainer
+      className="text-dark d-flex justify-content-center align-items-center"
+      style={{ height: "100vh" }}
+    >
       <MDBCard>
-        <MDBRow className='g-0'>
-
-          <MDBCol md='6'>
-            <MDBCardImage src='https://www.realsimple.com/thmb/Yu8tWYt6oV3HtCBW1Psvok4W0zs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-973557382-1-21b49397d4d844609fe1ff8ad8946f31.jpg' alt="login form" className='rounded-start w-100'/>
+        <MDBRow className="g-0">
+          <MDBCol md="6">
+            <MDBCardImage
+              src="https://static.vecteezy.com/system/resources/previews/001/431/382/original/healthy-menu-and-fresh-food-e-commerce-composition-vector.jpg"
+              className="w-100 h-100"
+              style={{ objectFit: "cover" }}
+            />
           </MDBCol>
-
-          <MDBCol md='6'>
-            <MDBCardBody className='d-flex flex-column'>
-
-              {/* <div className='d-flex flex-row mt-2'>
-                <MDBIcon fas icon="cubes fa-3x me-3" style={{ color: '#ff6219' }}/>
-                <span className="h1 fw-bold mb-0">Logo</span>
-              </div> */}
-
-              <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Sign into your account</h5>
-
-                <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg"/>
-                <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg"/>
-
-              <MDBBtn className="mb-4 px-5" color='dark' size='lg'>Login</MDBBtn>
-              <a className="small text-muted" href="#!">Forgot password?</a>
-              <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? <a href="#!" style={{color: '#393f81'}}>Register here</a></p>
-
-              <div className='d-flex flex-row justify-content-start'>
-                <a href="#!" className="small text-muted me-1">Terms of use.</a>
-                <a href="#!" className="small text-muted">Privacy policy</a>
+          <MDBCol md="6">
+            <MDBCardBody className="d-flex flex-column">
+              <h5
+                className="fw-normal my-4 pb-3"
+                style={{ letterSpacing: "1px" }}
+              >
+                Sign into your account
+              </h5>
+              <form onSubmit={handleSubmit}>
+                <MDBInput
+                  wrapperClass="mb-4"
+                  label="Email address"
+                  id="formControlLg"
+                  type="email"
+                  size="lg"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <MDBInput
+                  wrapperClass="mb-4"
+                  label="Password"
+                  id="formControlLg"
+                  type="password"
+                  size="lg"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <MDBBtn
+                  className="mb-4 px-5"
+                  color="dark"
+                  size="lg"
+                  type="submit"
+                >
+                  Login
+                </MDBBtn>
+              </form>
+              <a className="small text-muted" href="#!">
+                Forgot password?
+              </a>
+              <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
+                Don't have an account?{" "}
+                <a href="/sign-up" style={{ color: "#393f81" }}>
+                  Register here
+                </a>
+              </p>
+              <div className="d-flex flex-row justify-content-start">
+                <a href="#!" className="small text-muted me-1">
+                  Terms of use.
+                </a>
+                <a href="#!" className="small text-muted">
+                  Privacy policy
+                </a>
               </div>
-
             </MDBCardBody>
           </MDBCol>
-
         </MDBRow>
       </MDBCard>
-
     </MDBContainer>
   );
 }

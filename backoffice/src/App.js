@@ -138,7 +138,7 @@ function App() {
       </DrawerHeader>
       <Divider />
       <List>
-        {[{name:'Dashboard',path:"/",icon:<ImStatsBars2 />}, {name:'Products',path:"products",icon:<MdProductionQuantityLimits />}, {name:'Orders',path:"Orders",icon:<FaCartArrowDown />}, {name:'Categories',path:"Category",icon:<BiCategory />},{name:'Employees',path:"Employees",icon:<FaPersonCircleCheck />},{name:'Clients',path:"Client",icon:<IoPerson />}].map((text, index) => (
+        {[{name:'Dashboard',path:"/",icon:<ImStatsBars2 />}, {name:'Products',path:"products",icon:<MdProductionQuantityLimits />}, {name:'Orders',path:"Orders",icon:<FaCartArrowDown />}, {name:'Categories',path:"Category",icon:<BiCategory />},{name:'Employees',path:"Employees",icon:<FaPersonCircleCheck />},{name:'Clients',path:"Client",icon:<IoPerson />},{name:'Contact',path:"Contact",icon:<IoPerson />}].map((text, index) => (
           <ListItem key={text.name} disablePadding sx={{ display: 'block' }}>
             <ListItemButton
               sx={{

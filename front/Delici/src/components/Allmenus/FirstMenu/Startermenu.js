@@ -16,7 +16,7 @@ function Startermenu() {
         
     }, [])
     
-    
+    console.log(products, "productssssssss");
 
     const board = products?.filter((elem) => {
         return elem.SubCategory.name === "board"
@@ -25,7 +25,7 @@ function Startermenu() {
     console.log(board, "board");
 
     const FruitSalade = products?.filter((elem) => {
-        return elem.SubCategory.name === "Fruit Salad"
+        return elem.SubCategory.name === "Fruit salad"
     })
 
     console.log(FruitSalade, "Fruit Salad");

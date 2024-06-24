@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.20",
     "@reduxjs/toolkit": "^2.2.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -12,6 +15,7 @@
     "fslightbox-react": "^1.6.2-2",
     "mdb-react-ui-kit": "^7.2.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.10.3",
     "react-countup": "^6.4.0",
     "react-dom": "^18.2.0",
     "react-fancybox": "^0.2.5",

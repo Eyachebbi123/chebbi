@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://root:95134505Yy*@localhost:3306/chebbi"
 }
 
 model Products {
@@ -24,32 +24,39 @@ model Products {
   categoryId Int?
   review     Review[]
   bookmark   Bookmark[]
-  imageURL  String? @db.Text
+  imageURL   String?    @db.Text
 
   // Promotion   Promotion? @relation(fields: [promotionId], references: [id])
   // promotionId Int?
   SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
   subCategoryId Int?
+  createdDate   DateTime?    @default(now())
 }
 
-model users {
-  id          Int           @id @default(autoincrement())
-  fullname    String
-  age         Int
-  adresse     String
-  mobilephone String
+model user {
+  id       Int    @id @default(autoincrement())
+  fullName String
+
+  address     String?
+  phone       String?
   email       String        @unique
-  mdp         String
+  avatarUrl   String?
+  password    String
   bookmark    Bookmark[]
   reclamation Reclamation[]
   review      Review[]
+  orders      Order[]
 }
 
 model Order {
-  id          Int        @id @default(autoincrement())
-  orderNumber String
-  price       Float
-  products    Products[]
+  id Int @id @default(autoincrement())
+
+  price    Float
+  products Products[]
+  user     user?      @relation(fields: [userId], references: [id])
+  userId   Int?
+  phone Int
+  address String
 }
 
 model Category {
@@ -76,8 +83,8 @@ model Review {
   Products   Products? @relation(fields: [productsId], references: [id])
   productsId Int?
 
-  users   users? @relation(fields: [usersId], references: [id])
-  usersId Int?
+  user   user? @relation(fields: [userId], references: [id])
+  userId Int?
 }
 
 model Bookmark {
@@ -85,8 +92,8 @@ model Bookmark {
 
   Products   Products? @relation(fields: [productsId], references: [id])
   productsId Int?
-  users      users?    @relation(fields: [usersId], references: [id])
-  usersId    Int?
+  user       user?     @relation(fields: [userId], references: [id])
+  userId     Int?
 }
 
 model Reclamation {
@@ -95,8 +102,8 @@ model Reclamation {
   description String
   status      String
 
-  users   users? @relation(fields: [usersId], references: [id])
-  usersId Int?
+  user   user? @relation(fields: [userId], references: [id])
+  userId Int?
 }
 
 // model Promotion {
@@ -110,19 +117,26 @@ model Reclamation {
 // }
 
 model employees {
-  id          Int           @id @default(autoincrement())
-  Name    String
+  id          Int    @id @default(autoincrement())
+  Name        String
   mobilephone String
-  email       String        
+  email       String
 }
 
 model clients {
-  id          Int           @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   fullName    String
   mobilephone String
-  email       String  
-  age         String  
-  adress     String
-  password   String
+  email       String
+  age         String
+  adress      String
+  password    String
+}
 
+model Contact {
+  id      Int    @id @default(autoincrement())
+  name    String
+  email   String
+  phone   Int
+  message String
 }

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from "react";
+import axios from "axios";
 import {
   MDBBtn,
   MDBContainer,
@@ -8,58 +9,107 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBInput,
-  MDBIcon,
-  MDBCheckbox
-}
-from 'mdb-react-ui-kit';
+} from "mdb-react-ui-kit";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:7000/users", {
+        fullName,
+        email,
+        password,
+      });
+
+      console.log("Signup successful:", response.data);
+      toast.success(response.data);
+      navigate("/login");
+      // Add any further logic or redirection here after successful signup
+    } catch (error) {
+      console.error("Error signing up:", error);
+      toast.error(error.message);
+      // Handle error scenarios such as displaying an error message to the user
+    }
+  };
+
   return (
     <MDBContainer fluid>
-
-      <MDBCard className='text-black m-5' style={{borderRadius: '25px'}}>
-        <MDBCardBody>
-          <MDBRow>
-            <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
-
-              <p classNAme="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-
-              <div className="d-flex flex-row align-items-center mb-4 ">
-                <MDBIcon fas icon="user me-3" size='lg'/>
-                <MDBInput label='Your Name' id='form1' type='text' className='w-100'/>
+      <MDBCard className="text-black m-5" style={{ borderRadius: "25px" }}>
+        <MDBRow className="g-0">
+          <MDBCol md="6">
+            <MDBCardBody className="d-flex flex-column">
+              <h5
+                className="fw-normal my-4 pb-3"
+                style={{ letterSpacing: "1px", color: "#0d1819" }}
+              >
+                Register Now
+              </h5>
+              <form style={{ color: "#0d1819" }} onSubmit={handleSubmit}>
+                <MDBInput
+                  wrapperClass="mb-4"
+                  label="Full Name"
+                  id="fullName"
+                  type="text"
+                  size="lg"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  required
+                />
+                <MDBInput
+                  wrapperClass="mb-4"
+                  label="Email"
+                  id="email"
+                  type="email"
+                  size="lg"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <MDBInput
+                  wrapperClass="mb-4"
+                  label="Password"
+                  id="password"
+                  type="password"
+                  size="lg"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <MDBBtn
+                  className="mb-4 px-5"
+                  color="dark"
+                  size="lg"
+                  type="submit"
+                >
+                  Sign Up
+                </MDBBtn>
+              </form>
+              <div className="d-flex flex-row justify-content-start">
+                <a href="#!" className="small text-muted me-1">
+                  Terms of Use
+                </a>
+                <a href="#!" className="small text-muted">
+                  Privacy Policy
+                </a>
               </div>
-
-              <div className="d-flex flex-row align-items-center mb-4">
-                <MDBIcon fas icon="envelope me-3" size='lg'/>
-                <MDBInput label='Your Email' id='form2' type='email'/>
-              </div>
-
-              <div className="d-flex flex-row align-items-center mb-4">
-                <MDBIcon fas icon="lock me-3" size='lg'/>
-                <MDBInput label='Password' id='form3' type='password'/>
-              </div>
-
-              <div className="d-flex flex-row align-items-center mb-4">
-                <MDBIcon fas icon="key me-3" size='lg'/>
-                <MDBInput label='Repeat your password' id='form4' type='password'/>
-              </div>
-
-              <div className='mb-4'>
-                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
-              </div>
-
-              <MDBBtn className='mb-4' size='lg'>Register</MDBBtn>
-
-            </MDBCol>
-
-            <MDBCol md='10' lg='6' className='order-1 order-lg-2 d-flex align-items-center'>
-              <MDBCardImage src='https://www.realsimple.com/thmb/Yu8tWYt6oV3HtCBW1Psvok4W0zs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-973557382-1-21b49397d4d844609fe1ff8ad8946f31.jpg' fluid/>
-            </MDBCol>
-
-          </MDBRow>
-        </MDBCardBody>
+            </MDBCardBody>
+          </MDBCol>
+          <MDBCol md="6">
+            <MDBCardImage
+              src="https://static.vecteezy.com/system/resources/previews/001/431/382/original/healthy-menu-and-fresh-food-e-commerce-composition-vector.jpg"
+              className="w-100 h-100"
+              style={{ objectFit: "cover" }}
+            />
+          </MDBCol>
+        </MDBRow>
       </MDBCard>
-
     </MDBContainer>
   );
 }

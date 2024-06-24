@@ -1,47 +1,74 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
+import { CreateAuthDto, LoginDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import * as bcrypt from 'bcrypt'
+import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
-  constructor(private readonly prisma: PrismaService,private jwtservice:JwtService ) { }
-  async Login(dto: CreateAuthDto) {
-
-    const { password, email } = dto;
-    const user = await this.prisma.users.findUnique({ where: { email } })
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
+  async login(dto: LoginDto) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: dto.email,
+      },
+    });
     if (!user) {
-      throw new HttpException('invalid email',HttpStatus.BAD_REQUEST);
-
+      throw new HttpException('invalid email', HttpStatus.BAD_REQUEST);
     }
-    const validpassword=await bcrypt.compare(password,user.mdp);
-    if(!validpassword){
-      throw new HttpException('invalid password',HttpStatus.BAD_REQUEST);
+    const { password, ...rest } = user;
+    if (await bcrypt.compare(dto.password, password)) {
+      const token = this.jwtService.sign(rest);
+      return token;
+    } else {
+      throw new HttpException('invalid password', HttpStatus.BAD_REQUEST);
     }
-    const {mdp,...rest}=user
-
-    const token = await this.jwtservice.signAsync(rest);
-    return token; 
   }
 
-  async signUp(dto: CreateAuthDto) {
+  async getMyInfo(token: string) {
+    const myInfo = this.jwtService.decode(token);
+    return myInfo;
   }
 
-
-  findAll() {
-    return `This action returns all auth`;
+  async updateMe(dto: UpdateAuthDto, id: number) {
+    if (dto.password) {
+      throw new HttpException("u can't touch password", HttpStatus.BAD_REQUEST);
+    }
+    if (dto.email) {
+      const user = await this.prisma.user.findUnique({
+        where: {
+          email: dto.email,
+        },
+      });
+      if (user) {
+        throw new HttpException('invalid email', HttpStatus.BAD_REQUEST);
+      }
+    }
+    const user = await this.prisma.user.update({
+      where: { id: id },
+      data: dto,
+    });
+    const { password, ...rest } = user;
+    const token = this.jwtService.sign(rest);
+    return token
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+  // findAll() {
+  //   return `This action returns all auth`;
+  // }
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+  // findOne(id: number) {
+  //   return `This action returns a #${id} auth`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
-  }
+  // update(id: number, updateAuthDto: UpdateAuthDto) {
+  //   return `This action updates a #${id} auth`;
+  // }
+
+  // remove(id: number) {
+  //   return `This action removes a #${id} auth`;
+  // }
 }
