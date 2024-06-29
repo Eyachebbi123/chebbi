@@ -14,12 +14,14 @@ import { useNavigate } from "react-router-dom";
 export default function AddProduct() {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
+  const [subCategories, setSubCategories] = useState([]);
   const [product, setProduct] = useState({
     productName: "",
     description: "",
     categoryId: "",
     price: "",
     imageURL: null,
+    subCategoryId: "",
   });
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
 
@@ -27,52 +29,62 @@ export default function AddProduct() {
     dispatch(getcategories());
   }, [dispatch]);
 
-  console.log(categories, "categories");
-
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name === "imageURL" && files.length > 0) {
+
+    if (name === "imageURL" && files?.length > 0) {
       setProduct({
         ...product,
         [name]: files[0],
       });
       setImagePreviewUrl(URL.createObjectURL(files[0]));
+      uploadImage(files[0]);
     } else {
       setProduct({
         ...product,
         [name]: value,
       });
     }
+
+    if (name === "categoryId") {
+      const selectedCategory = categories.find((cat) => cat.id === parseInt(value));
+      const subCategoriesForSelected = selectedCategory?.subcategory || [];
+      setSubCategories(subCategoriesForSelected);
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        [name]: value,
+        subCategoryId:
+          subCategoriesForSelected?.length > 0
+            ? subCategoriesForSelected[0].id
+            : "",
+      }));
+    }
   };
-const navigate=useNavigate()
+
   const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
 
     try {
       const res = await axios.post("http://localhost:7000/upload", formData);
-      console.log(res.data.path,"path");
-      return res.data.path;
+      setProduct((prev) => ({
+        ...prev,
+        imageURL: res.data.path,
+      }));
     } catch (error) {
       console.error("Image upload failed:", error);
-      throw error;
     }
   };
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const imageUrl = await uploadImage(product.imageURL);
-      const productData = {
-        ...product,
-        price: +product.price,
-        imageURL: imageUrl,
-      };
-
-      dispatch(addProduct(productData));
-      navigate("/products")
-      
+      // Convert price to number before dispatching
+      dispatch(addProduct({...product, price: +product.price}));
+      navigate("/products");
     } catch (error) {
       console.error("Failed to add product:", error);
     }
@@ -86,8 +98,6 @@ const navigate=useNavigate()
       {!imagePreviewUrl && (
         <input
           required
-          id="outlined-required"
-        
           type="file"
           name="imageURL"
           onChange={handleChange}
@@ -104,7 +114,6 @@ const navigate=useNavigate()
       )}
       <TextField
         required
-        id="outlined-required"
         label="Nom du produit"
         className="col-10"
         name="productName"
@@ -113,7 +122,6 @@ const navigate=useNavigate()
       />
       <TextField
         required
-        id="outlined-required"
         label="Description"
         className="col-10"
         name="description"
@@ -133,8 +141,8 @@ const navigate=useNavigate()
             Choisissez une catégorie
           </MenuItem>
           {categories?.length > 0 ? (
-            categories.map((elem, index) => (
-              <MenuItem key={index} value={elem.id}>
+            categories.map((elem) => (
+              <MenuItem key={elem.id} value={elem.id}>
                 {elem.name}
               </MenuItem>
             ))
@@ -145,9 +153,31 @@ const navigate=useNavigate()
           )}
         </Select>
       </FormControl>
+
+      <FormControl className="col-10" required>
+        <InputLabel id="subcategory-label">Sous-catégorie</InputLabel>
+        <Select
+          labelId="subcategory-label"
+          id="subcategory"
+          name="subCategoryId"
+          value={product.subCategoryId}
+          onChange={handleChange}
+          disabled={!subCategories?.length}
+        >
+          <MenuItem value="">Choisissez une sous-catégorie</MenuItem>
+          {subCategories?.length > 0 ? (
+            subCategories.map((elem) => (
+              <MenuItem key={elem.id} value={elem.id}>
+                {elem.name}
+              </MenuItem>
+            ))
+          ) : (
+            <MenuItem value="">Aucune sous-catégorie disponible</MenuItem>
+          )}
+        </Select>
+      </FormControl>
       <TextField
         required
-        id="outlined-required"
         label="Prix"
         className="col-10"
         type="number"

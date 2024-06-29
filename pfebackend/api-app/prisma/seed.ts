@@ -13,16 +13,21 @@ async function main() {
     const categoryIds = []
 
     const name = ["Fruit", "Salads", "Drinks", "Grills and soup", "Morning", "Lunch","dinner"]
-
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 3; i++) {
         const category = await prisma.category.create({
-            data: {
-                name: name[i]
-            }
-        })
-        categoryIds.push(category.id)
-
-    }
+          data: {
+            name: name[i],
+            // imageURL: imageUrls[i],
+           
+    
+          }
+        });
+        categoryIds.push(category.id);
+      }
+      
+    
+     
+      
     // const subcategoryIds = []
 
     // const namet = ["Fruit salad","boards","fruit smothie","healthy fruit ice cream","freshness","another salads"]

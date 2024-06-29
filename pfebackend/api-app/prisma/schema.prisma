@@ -31,6 +31,8 @@ model Products {
   SubCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
   subCategoryId Int?
   createdDate   DateTime?    @default(now())
+  orderItems    OrderItem[]
+
 }
 
 model user {
@@ -57,7 +59,22 @@ model Order {
   userId   Int?
   phone Int
   address String
+  orderItems OrderItem[]
+
 }
+
+
+
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Products @relation(fields: [productId], references: [id])
+}
+
 
 model Category {
   id   Int    @id @default(autoincrement())

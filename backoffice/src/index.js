@@ -6,15 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import Router from './router/Router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
-import reducer from "./helpers/store/reducer"
-import { configureStore } from '@reduxjs/toolkit';
 import { ToastContainer, toast,Pro } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
-const store = configureStore({ reducer })
+import {storeApp} from "./store/index"
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider  store={storeApp}>
 
       <Router />
       <ToastContainer />

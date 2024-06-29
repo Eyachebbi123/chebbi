@@ -10,11 +10,13 @@ import TotalOrderLineChartCard from './TotalOrderLineChartCard';
 import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
-
+import { Provider  } from 'react-redux';
 import { gridSpacing } from '../../helpers/store/constant';
-
+import { configureStore } from "@reduxjs/toolkit";
+import reducer from "../../helpers/store/reducer";
 // assets
 import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
+const store = configureStore({ reducer });
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -26,6 +28,8 @@ const Dashboard = () => {
   }, []);
 
   return (
+    <Provider store={store}>
+
     <Grid container spacing={gridSpacing}>
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
@@ -65,6 +69,8 @@ const Dashboard = () => {
         </Grid>
       </Grid>
     </Grid>
+    </Provider>
+
   );
 };
 

@@ -32,10 +32,24 @@ export default function CategoryList() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
+console.log(rows,"show",show,setShow);
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
+        {
+            field: "imageUrl",
+            headerName: "Image",
+            width: 170,
+            editable: true,
+            renderCell: (params) => (
+              <img
+                style={{ objectFit: "cover", width: "35px", height: "35px" }}
+                src={params?.row?.imageUrl}
+                width={35}
+                height={35}
+              />
+            ),
+          },
         {
             field: 'name',
             headerName: 'Name',
@@ -54,24 +68,24 @@ export default function CategoryList() {
         //         )).join(", ");
         //     }
         // },
-        {
-            field: 'actions',
-            type: 'actions',
-            headerName: 'Actions',
-            getActions: (params) => [
-                <GridActionsCellItem icon={<FcFullTrash />} label="Delete" />,
-                <GridActionsCellItem icon={<IoEye />} label="Print"onClick={()=>navigate(`CategoryDetail/${params.row.id}`)}/>,
-            ]
-        }
+        // {
+        //     field: 'actions',
+        //     type: 'actions',
+        //     headerName: 'Actions',
+        //     getActions: (params) => [
+        //         <GridActionsCellItem icon={<FcFullTrash />} label="Delete" />,
+        //         <GridActionsCellItem icon={<IoEye />} label="Print"onClick={()=>navigate(`CategoryDetail/${params.row.id}`)}/>,
+        //     ]
+        // }
 
     ];
 
 
     return (
         <div>
-            {/* <div className='d-flex justify-content-end'>
+            <div className='d-flex justify-content-end'>
 
-                <button className='btn btn-primary my-4' onClick={handleShow}>Add Category</button>
+               
             </div>
             <Box sx={{ height: 400, width: '100%' }}>
                 <DataGrid
@@ -120,7 +134,7 @@ export default function CategoryList() {
                     </Button>
                     <Button variant="primary">Understood</Button>
                 </Modal.Footer>
-            </Modal> */}
+            </Modal>
 
 
 

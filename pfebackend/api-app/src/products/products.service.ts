@@ -47,7 +47,7 @@ export class ProductsService {
     })
   }
   findAll() {
-    return this.prisma.products.findMany({include:{Category:true},orderBy:{createdDate:'desc'}});
+    return this.prisma.products.findMany({include:{Category:{include:{subcategory:true}}},orderBy:{createdDate:'desc'}});
   }
   // findAllByCategoryetSub(title: string, subTit: string) {
   //   return this.prisma.products.findMany({

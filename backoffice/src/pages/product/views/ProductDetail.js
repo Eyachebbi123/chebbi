@@ -20,7 +20,7 @@ export default function ProductDetail() {
     description: '',
     categoryId: '',
     price: '',
-    imageURL: ''
+    imageUrl: ''
   });
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
 
@@ -35,19 +35,19 @@ export default function ProductDetail() {
         description: product.description,
         categoryId: product.categoryId,
         price: product.price,
-        imageURL: product.imageURL
+        imageUrl: product.imageUrl
       });
-      setImagePreviewUrl(product.imageURL);
+      setImagePreviewUrl(product.imageUrl);
     }
   }, [product]);
 const navigate=useNavigate()
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name === 'imageURL' && files.length > 0) {
+    if (name === 'imageUrl' && files.length > 0) {
       const file = files[0];
       setProductDetails({
         ...productDetails,
-        imageURL: file
+        imageUrl: file
       });
       setImagePreviewUrl(URL.createObjectURL(file));
     } else {
@@ -183,9 +183,9 @@ const navigate=useNavigate()
               description: product.description,
               categoryId: product.categoryId,
               price: product.price,
-              imageURL: product.imageURL
+              imageURL: product.imageUrl
             });
-            setImagePreviewUrl(product.imageURL);
+            setImagePreviewUrl(product.imageUrl);
           }}
         >
           Cancel
