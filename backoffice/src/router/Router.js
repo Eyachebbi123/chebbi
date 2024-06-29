@@ -31,6 +31,9 @@ import { useEffect } from "react";
 import Login from "../auth/Login";
 import Signup from "../auth/Signup";
 import Auth from "../auth/Auth";
+import Contacts from "../pages/contact/Contact";
+import ContactList from "../pages/contact/views/ContactList";
+import ContactDetails from "../pages/contact/views/ContactDetails";
 
 export default function Router() {
   const isAuthenticated = useSelector((state) => state.auth?.me);
@@ -70,6 +73,11 @@ export default function Router() {
               <Route index element={<ClientList />} />
               <Route path="ClientDetail" element={<ClientDetail />} />
               <Route path="add-Client" element={<AddClient />} />
+            </Route>
+            <Route path="contact" element={<Contacts />}>
+              <Route index element={<ContactList />} />
+              <Route path="ClientDetail" element={<ContactDetails />} />
+            
             </Route>
           </Route>
         ) : (

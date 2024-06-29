@@ -22,7 +22,7 @@ import { FaCartArrowDown } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
 import { FaPersonCircleCheck } from "react-icons/fa6";
 import { IoPerson } from "react-icons/io5";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { ImStatsBars2 } from "react-icons/im";
 
 import Avatar from "@mui/material/Avatar";
@@ -111,94 +111,91 @@ function App() {
   };
 
   return (
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar position="fixed" open={open}>
-          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            <div sx={{ display: "flex" }}>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-                sx={{
-                  marginRight: 5,
-                  ...(open && { display: "none" }),
-                }}
-              >
-                <IoIosMenu />
-              </IconButton>
-            </div>
-            <div className="d-flex align-items-center gap-3">
-              {isAuthenticated.fullName}
-              <Avatar sx={{ bgcolor: "white", color: "#1976d2" }}>
-                {isAuthenticated.fullName &&
-                  isAuthenticated.fullName.substring(0, 2).toUpperCase()}
-              </Avatar>
-            </div>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          <div sx={{ display: "flex" }}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: 5,
+                ...(open && { display: "none" }),
+              }}
+            >
+              <IoIosMenu />
             </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <List>
-            {[
-              { name: "Dashboard", path: "/", icon: <ImStatsBars2 /> },
-              {
-                name: "Products",
-                path: "products",
-                icon: <MdProductionQuantityLimits />,
-              },
-              { name: "Orders", path: "Orders", icon: <FaCartArrowDown /> },
-              { name: "Categories", path: "Category", icon: <BiCategory /> },
-             ,
-             ,
-            ].map((text, index) => (
-              <ListItem
-                key={text.name}
-                disablePadding
-                sx={{ display: "block" }}
+          </div>
+          <div className="d-flex align-items-center gap-3">
+            {isAuthenticated.fullName}
+            <Avatar sx={{ bgcolor: "white", color: "#1976d2" }}>
+              {isAuthenticated.fullName &&
+                isAuthenticated.fullName.substring(0, 2).toUpperCase()}
+            </Avatar>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {[
+            { name: "Dashboard", path: "/", icon: <ImStatsBars2 /> },
+            {
+              name: "Products",
+              path: "products",
+              icon: <MdProductionQuantityLimits />,
+            },
+            { name: "Orders", path: "Orders", icon: <FaCartArrowDown /> },
+            { name: "Categories", path: "Category", icon: <BiCategory /> },
+            ,
+            {name:'Contact',path:"contact",icon:<IoPerson />}
+            ,
+          ].map((text, index) => (
+            <ListItem key={text.name} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+                onClick={() => navigate(`${text.path}`)}
               >
-                <ListItemButton
+                <ListItemIcon
                   sx={{
-                    minHeight: 48,
-                    justifyContent: open ? "initial" : "center",
-                    px: 2.5,
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
                   }}
-                  onClick={() => navigate(`${text.path}`)}
                 >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : "auto",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {text.icon}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={text.name}
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-        </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader />
-          <Outlet />
-        </Box>
+                  {text.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={text.name}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+        <Outlet />
       </Box>
+    </Box>
   );
 }
 
